@@ -19,15 +19,16 @@ $arr_nilai = [$ns1,$ns2,$ns3,$ns4];
 <?php
 $nomor = 1;
 foreach($arr_nilai as $ns){
-echo '<tr><td>'.$nomor.'</td>';
-echo '<td>'.$ns['nim'].'</td>';
-echo '<td>'.$ns['uts'].'</td>';
-echo '<td>'.$ns['uas'].'</td>';
-echo '<td>'.$ns['tugas'].'</td>';
-$nilai_akhir = ($ns['uts'] + $ns['uas']+$ns['tugas'])/3;
-echo '<td>'.number_format($nilai_akhir,2,',','.').'</td>';
-echo '<tr/>';
-$nomor++;
+    echo '<tr>';
+    echo '<td>'.$nomor.'</td>';
+    echo '<td>'.$ns['nim'].'</td>';
+    echo '<td>'.$ns['uts'].'</td>';
+    echo '<td>'.$ns['uas'].'</td>';
+    echo '<td>'.$ns['tugas'].'</td>';
+    $nilai_akhir = ($ns['uts'] + $ns['uas'] + $ns['tugas']) / 3;
+    echo '<td>'.number_format($nilai_akhir, 2, ',', '.').'</td>';
+    echo '</tr>'; // Perbaikan tag penutup <tr/>
+    $nomor++;
 }
 ?>
 </tbody>
