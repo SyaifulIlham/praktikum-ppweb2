@@ -27,7 +27,7 @@ foreach($arr_nilai as $ns){
     echo '<td>'.$ns['tugas'].'</td>';
     $nilai_akhir = ($ns['uts'] + $ns['uas'] + $ns['tugas']) / 3;
     echo '<td>'.number_format($nilai_akhir, 2, ',', '.').'</td>';
-    echo '</tr>'; // Perbaikan tag penutup <tr/>
+    echo '</tr>';
     $nomor++;
 }
 ?>
