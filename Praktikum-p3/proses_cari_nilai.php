@@ -1,43 +1,50 @@
 <?php
-// Menghitung nilai sebelum HTML dimulai
-$nilai_uts = $_POST["uts"] * (30/100);
-$nilai_uas = $_POST["Uas"] * (30/100);
-$nilai_tugas = $_POST["praktikum"] * (35/100);
-$nilai_akhir = $nilai_uts + $nilai_uas + $nilai_tugas;
+if (
+    isset($_POST["name"], $_POST["nim"], $_POST["Rombel"], $_POST["matkul"], $_POST["uts"], $_POST["Uas"], $_POST["praktikum"]) &&
+    !empty($_POST["name"]) && !empty($_POST["nim"]) && !empty($_POST["Rombel"]) && !empty($_POST["matkul"]) &&
+    is_numeric($_POST["uts"]) && is_numeric($_POST["Uas"]) && is_numeric($_POST["praktikum"])
+) {
+    $nilai_uts = $_POST["uts"] * (30/100);
+    $nilai_uas = $_POST["Uas"] * (30/100);
+    $nilai_tugas = $_POST["praktikum"] * (35/100);
+    $nilai_akhir = $nilai_uts + $nilai_uas + $nilai_tugas;
 
-if ($nilai_akhir <= 35) {
-    $grade = "E";
-} elseif ($nilai_akhir <= 55 && $nilai_akhir > 35) {
-    $grade = "D";
-} elseif ($nilai_akhir <= 69 && $nilai_akhir > 55 ) {
-    $grade = "C";
-} elseif($nilai_akhir <= 84 && $nilai_akhir > 69){
-    $grade = "B";
-}elseif ($nilai_akhir <= 100 && $nilai_akhir > 84) {
-    $grade = "A";
+    if ($nilai_akhir <= 35) {
+        $grade = "E";
+    } elseif ($nilai_akhir <= 55) {
+        $grade = "D";
+    } elseif ($nilai_akhir <= 69) {
+        $grade = "C";
+    } elseif ($nilai_akhir <= 84) {
+        $grade = "B";
+    } elseif ($nilai_akhir <= 100) {
+        $grade = "A";
+    } else {
+        $grade = "Undefined";
+    }
+
+    switch ($grade) {
+        case "A":
+            $keterangan = "Sangat bagus, nilai mu bagus";
+            break;
+        case "B":
+            $keterangan = "Sudah bagus, pertahankan";
+            break;
+        case "C":
+            $keterangan = "Usahakan setelah ini dapat B";
+            break;
+        case "D":
+            $keterangan = "Tolong kurangi mainnya";
+            break;
+        case "E":
+            $keterangan = "Sudah tidak ada harapan";
+            break;
+        default:
+            $keterangan = "Data tidak valid";
+            break;
+    }
 } else {
-    echo "undefined";
-}
-
-switch ($grade) {
-    case "A":
-        $keterangan = "Sangat bagus, nilai mu bagus";
-        break;
-    case "B":
-        $keterangan = "Sudah bagus, pertahankan";
-        break;
-    case "C":
-        $keterangan = "Usahakan setelah ini dapat B";
-        break;
-    case "D":
-        $keterangan = "Tolong kurangi mainnya";
-        break;
-    case "E":
-        $keterangan = "Sudah tidak ada harapan";
-        break;
-    default:
-        $keterangan = "Data tidak valid";
-        break;
+    die("<h3 style='color:red; text-align:center;'>Data tidak lengkap atau tidak valid!</h3>");
 }
 ?>
 
@@ -61,9 +68,9 @@ switch ($grade) {
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <p><strong>Nama:</strong> <?= $_POST["name"] ?></p>
-                    <p><strong>NIM:</strong> <?= $_POST["nim"] ?></p>
-                    <p><strong>Rombel:</strong> <?= $_POST["Rombel"] ?></p>
+                    <p><strong>Nama:</strong> <?= htmlspecialchars($_POST["name"]) ?></p>
+                    <p><strong>NIM:</strong> <?= htmlspecialchars($_POST["nim"]) ?></p>
+                    <p><strong>Rombel:</strong> <?= htmlspecialchars($_POST["Rombel"]) ?></p>
                 </div>
             </div>
             <table class="table table-bordered text-center">
@@ -78,10 +85,10 @@ switch ($grade) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?= $_POST["matkul"] ?></td>
-                        <td><?= $_POST["uts"] ?></td>
-                        <td><?= $_POST["Uas"] ?></td>
-                        <td><?= $_POST["praktikum"] ?></td>
+                        <td><?= htmlspecialchars($_POST["matkul"]) ?></td>
+                        <td><?= htmlspecialchars($_POST["uts"]) ?></td>
+                        <td><?= htmlspecialchars($_POST["Uas"]) ?></td>
+                        <td><?= htmlspecialchars($_POST["praktikum"]) ?></td>
                         <td><?= number_format($nilai_akhir, 2) ?></td>
                     </tr>
                 </tbody>
@@ -91,3 +98,4 @@ switch ($grade) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
